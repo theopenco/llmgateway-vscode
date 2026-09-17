@@ -8,11 +8,11 @@
 	"icon": "images/icon.png",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/RATCHAW/llmgateway-for-vscode.git"
+		"url": "https://github.com/theopenco/llmgateway-vscode.git"
 	},
 	"homepage": "https://llmgateway.io",
 	"bugs": {
-		"url": "https://github.com/RATCHAW/llmgateway-for-vscode/issues"
+		"url": "https://github.com/theopenco/llmgateway-vscode/issues"
 	},
 	"engines": {
 		"vscode": "^1.134.0"
