@@ -1,0 +1,64 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    env:
+      IS_TAG: ${{ startsWith(github.ref, 'refs/tags/') }}
+      VSCE_PAT: ${{ secrets.VSCE_PAT }}
+      OVSX_PAT: ${{ secrets.OVSX_PAT }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      - name: Check tag matches package.json version
+        if: env.IS_TAG == 'true'
+        run: |
+          tag="${GITHUB_REF_NAME#v}"
+          pkg="$(node -p "require('./package.json').version")"
+          if [ "$tag" != "$pkg" ]; then
+            echo "tag $GITHUB_REF_NAME does not match package.json version $pkg" >&2
+            exit 1
+          fi
+
+      - run: pnpm lint
+      - run: pnpm test
+      - run: pnpm package
+
+      - id: vsix
+        run: echo "path=$(ls *.vsix)" >> "$GITHUB_OUTPUT"
+
+      - name: Publish to VS Marketplace
+        if: env.IS_TAG == 'true'
+        run: pnpm exec vsce publish --no-dependencies --packagePath "${{ steps.vsix.outputs.path }}"
+
+      - name: Publish to Open VSX
+        if: env.IS_TAG == 'true' && env.OVSX_PAT != ''
+        run: pnpm exec ovsx publish "${{ steps.vsix.outputs.path }}" --pat "$OVSX_PAT"
+
+      - name: Create GitHub release
+        if: env.IS_TAG == 'true'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ steps.vsix.outputs.path }}
+          generate_release_notes: true
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: vsix
+          path: "*.vsix"

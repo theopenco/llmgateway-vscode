@@ -13,3 +13,4 @@ vitest.config.ts
 .gitignore
 pnpm-lock.yaml
 *.vsix
+RELEASING.md

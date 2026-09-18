@@ -1,10 +1,14 @@
 # LLM Gateway for VS Code
 
+[![VS Marketplace](https://img.shields.io/visual-studio-marketplace/v/llmgateway.llmgateway-vscode?label=VS%20Marketplace)](https://marketplace.visualstudio.com/items?itemName=llmgateway.llmgateway-vscode)
+[![Installs](https://img.shields.io/visual-studio-marketplace/i/llmgateway.llmgateway-vscode)](https://marketplace.visualstudio.com/items?itemName=llmgateway.llmgateway-vscode)
+[![Open VSX](https://img.shields.io/open-vsx/v/llmgateway/llmgateway-vscode?label=Open%20VSX)](https://open-vsx.org/extension/llmgateway/llmgateway-vscode)
+
 Use every model on [LLM Gateway](https://llmgateway.io) directly in VS Code chat and agent mode. The extension registers LLM Gateway as a native language model provider, so gateway models show up in the Copilot Chat model picker next to the built-in ones, with tool calling, image input, reasoning, and usage reporting.
 
 ## Setup
 
-1. Install the extension.
+1. Install the extension from the [VS Marketplace](https://marketplace.visualstudio.com/items?itemName=llmgateway.llmgateway-vscode), or from [Open VSX](https://open-vsx.org/extension/llmgateway/llmgateway-vscode) in Cursor, Windsurf and VSCodium.
 2. Open the chat view, click the model picker, and choose **Manage Models…**.
 3. Pick **LLM Gateway**. You are prompted for an API key from the [dashboard](https://llmgateway.io/dashboard/api-keys) (starts with `llmgtwy_`). DevPass keys work too.
 4. Select any LLM Gateway model from the picker.
@@ -39,6 +43,8 @@ pnpm watch          # rebuild on change
 pnpm test
 pnpm package        # builds llmgateway-vscode-<version>.vsix
 ```
+
+See [RELEASING.md](RELEASING.md) for how a version gets published.
 
 ## License
 
