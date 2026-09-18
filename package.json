@@ -11,6 +11,10 @@
 		"url": "https://github.com/theopenco/llmgateway-vscode.git"
 	},
 	"homepage": "https://llmgateway.io",
+	"galleryBanner": {
+		"color": "#ffffff",
+		"theme": "light"
+	},
 	"bugs": {
 		"url": "https://github.com/theopenco/llmgateway-vscode/issues"
 	},
@@ -115,6 +119,7 @@
 		"@types/vscode": "1.134.0",
 		"@vscode/vsce": "^3.0.0",
 		"esbuild": "^0.25.0",
+		"ovsx": "^0.10.0",
 		"prettier": "^3.5.0",
 		"typescript": "^5.8.0",
 		"vitest": "^3.2.0"
